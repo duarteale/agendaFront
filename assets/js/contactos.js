@@ -99,7 +99,7 @@ function searchContactos() {
 }
 document.querySelectorAll(".dropdown-item").forEach((item) => {
       item.addEventListener("click", function () {
-            document.querySelector(".btn-dark.dropdown-toggle").textContent = item.textContent;
+            document.querySelector(".btn-light.dropdown-toggle").textContent = item.textContent;
             searchContactos();
             });
       });
@@ -115,24 +115,28 @@ function buildDropdownMenu(ciudades) {
       const ciudadMenu = document.getElementById('ciudadMenu');
       ciudadMenu.innerHTML = '';
       const mostrarTodosItem = document.createElement('a');
-      mostrarTodosItem.classList.add('dropdown-item', 'text-danger');
+      mostrarTodosItem.classList.add('dropdown-item');
       mostrarTodosItem.href = '#';
       mostrarTodosItem.textContent = 'Mostrar Todos';
 
+      mostrarTodosItem.style.color = '#7D13C0';
+
       mostrarTodosItem.addEventListener('click', function () {
-            document.querySelector(".btn-dark.dropdown-toggle").textContent = 'Ciudad';
+            document.querySelector(".btn-light.dropdown-toggle").textContent = 'Ciudad';
             showAllContactos(); // Función para mostrar todos los contactos
       });
       ciudadMenu.appendChild(mostrarTodosItem);
 
       ciudades.forEach(ciudad => {
             const ciudadItem = document.createElement('a');
-            ciudadItem.classList.add('dropdown-item', 'text-danger');
+            ciudadItem.classList.add('dropdown-item');
             ciudadItem.href = '#';
             ciudadItem.textContent = ciudad;
+
+            ciudadItem.style.color = '#7D13C0';
       
             ciudadItem.addEventListener('click', function () {
-            document.querySelector(".btn-dark.dropdown-toggle").textContent = ciudad;
+            document.querySelector(".btn-light.dropdown-toggle").textContent = ciudad;
             filterContactosByCiudad(ciudad); // Paso 3
             });
       

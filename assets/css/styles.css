@@ -1,14 +1,16 @@
 body{
-      background-color: black;
+      background-color: whitesmoke;
       color: rgb(125, 26, 192);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .navbar-brand{
-      color: whitesmoke;
+      color: rgb(125, 26, 192);
+      background-color: whitesmoke;
 }
 
 .navbar.bg-body-tertiary .navbar-nav .nav-link {
-      color: whitesmoke;
+      color: rgb(125, 26, 192);
+      background-color: whitesmoke;
 }
 h2{
       text-align: center;
@@ -19,6 +21,11 @@ input{
 
 .light{
       background-color: white;
+}
+#logocss{
+      align-items: center;
+      border: 3px solid #7D13C0;
+      border-radius: 10px;
 }
 
 .dropdown{
@@ -47,6 +54,7 @@ input{
 #password,
 #direccion,
 #ciudad{
+      color: rgb(125, 26, 192);
       text-align: center;
       width: 300px;
 }
@@ -55,6 +63,9 @@ input[type="url"] {
       text-align: center;
       width: 100%; 
       max-width: 300px; 
+}
+label{
+      color: rgb(125, 26, 192);
 }
 .container2{
       color: white;

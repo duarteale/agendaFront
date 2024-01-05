@@ -1,11 +1,8 @@
 async function GetAllUsuarios(ruta,buttons) {
       const resp = await axios.get(endpointBase + ruta);
-      if (resp.status === 200) {
-            let permisosUnicos = new Set();            
+      if (resp.status === 200) {        
             let miTabla = document.getElementById('tableBodyUsers');
             resp.data.forEach(element => {
-                  permisosUnicos.add(element.permisos);
-
                   let fila = document.createElement('tr');
 
                   let celda1 = document.createElement('td');
@@ -23,11 +20,6 @@ async function GetAllUsuarios(ruta,buttons) {
                   let celda4 = document.createElement('td');
                   celda4.textContent = element.email;
                   fila.appendChild(celda4);
-
-                  let celda5 = document.createElement('td');
-                  celda5.textContent = element.permisos ? element.permisos.nombre : 'Desconocido';
-                  fila.appendChild(celda5);
-                  console.log('Permisos:', element.permisos);
 
                   let celdaAcciones = document.createElement('td');
                   if (buttons){
@@ -68,7 +60,6 @@ async function GetAllUsuarios(ruta,buttons) {
                   fila.appendChild(celdaAcciones);
                   miTabla.appendChild(fila);
             });            
-            buildDropdownMenu(permisosUnicos);
       }
 }
 function checkPageAndLoadUsuarios() {
@@ -98,7 +89,7 @@ function searchUsuarios() {
 }
 document.querySelectorAll(".dropdown-item").forEach((item) => {
       item.addEventListener("click", function () {
-            document.querySelector(".btn-dark.dropdown-toggle").textContent = item.textContent;
+            document.querySelector(".btn-light.dropdown-toggle").textContent = item.textContent;
             searchUsuarios();
       });
 });
@@ -110,73 +101,14 @@ searchInput.addEventListener("input", function () {
       searchUsuarios();
 });
 
-//Funcion para hacer que devuelva el nombre del permiso.
-async function getNombrePermiso(permisoId) {
-      try {
-            const response = await axios.get(`${endpointBase}/permisos/${permisoId}`);
-            if (response.status === 200) {
-                  return response.data.nombre; // Ajusta esto según la estructura de tu objeto de permiso
-            } else {
-                  console.error('Error al obtener el nombre del permiso:', response.statusText);
-                  return 'Desconocido'; 
-            }
-            } catch (error) {
-            console.error('Error al obtener el nombre del permiso:', error.message);
-            return 'Desconocido'; 
-      }
-}
-
-
-function buildDropdownMenu(permisos) {
-      const permisoMenu = document.getElementById('permisoMenu');
-      permisoMenu.innerHTML = '';
-      const mostrarTodosItem = document.createElement('a');
-      mostrarTodosItem.classList.add('dropdown-item', 'text-danger');
-      mostrarTodosItem.href = '#';
-      mostrarTodosItem.textContent = 'Mostrar Todos';
-
-      mostrarTodosItem.addEventListener('click', function () {
-            document.querySelector(".btn-dark.dropdown-toggle").textContent = 'Permiso';
-            showAllUsuarios(); 
-      });
-      permisoMenu.appendChild(mostrarTodosItem);
-
-      permisos.forEach(permiso => {
-            const permisoItem = document.createElement('a');
-            permisoItem.classList.add('dropdown-item', 'text-danger');
-            permisoItem.href = '#';
-            permisoItem.textContent = permiso;
-      
-            permisoItem.addEventListener('click', function () {
-            document.querySelector(".btn-dark.dropdown-toggle").textContent = permiso;
-            filterUsuariosByPermiso(permiso);
-            });
-      
-            permisoMenu.appendChild(permisoItem);
-      });
-}
-
 function showAllUsuarios() {
       const tableRows = document.querySelectorAll("#tableBodyUsuarios tr");
       tableRows.forEach((row) => {
             row.style.display = "table-row";
       });
 }
-      
-function filterUsuariosBypermiso(permisoSeleccionado) {
-      const tableRows = document.querySelectorAll("#tableBodyUsuarios tr");
-      tableRows.forEach((row) => {
-            const permiso = row.querySelector("td:nth-child(5)").textContent; 
-      
-            if (permisoSeleccionado === 'Permiso' || permiso === permisoSeleccionado) {
-            row.style.display = "table-row";
-            } else {
-            row.style.display = "none";
-            }
-      });
-}
 
-      
+
 //Funcion para eliminar un usuario.
 async function SwalFire(element) {
       Swal.fire({

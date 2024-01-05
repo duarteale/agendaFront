@@ -9,16 +9,12 @@ async function PutUsuarios() {
             const nombre = document.getElementById("nombre").value;
             const apellido = document.getElementById("apellido").value;            
             const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            const permiso_id = document.getElementById("permiso_id").value;
       
             const usuarioActualizado = {
                   usuario,
                   nombre,
                   apellido,                  
                   email,
-                  password,
-                  permiso_id,
             };
       
             const resp = await axios.put(endpointBase + "/usuarios/" + usuarioID, usuarioActualizado);
