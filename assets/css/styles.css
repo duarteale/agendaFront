@@ -79,23 +79,16 @@ label{
       border-radius: 10px;
 }
 
-.small-button {
-      font-size: 0.5rem; 
-      padding:  0.1rem 0.5rem;
-}
 .bi {
       color: white;
       font-size: 25px;
 }
-
 .bi-arrow-left-circle-fill {
 font-size: 40px;
 }
-
 .flecha-container {
 text-align: center;
 }
-
 .flecha {
 display: inline-block;
 vertical-align: middle;
@@ -144,43 +137,20 @@ margin: 0;
 .btn-primary:active{
       background-color: rgb(118, 5, 101) !important;
 }
-.btn-light{
-      height: 50px;
+.imagen{
+      width: 50px;
+      height: 100px;
 }
-td{
-      vertical-align: middle;
-}
-
 form{   
-      border-radius: 20px;
       padding: 10px;
       text-align: center;
 }
-.form-row {
-      margin-left: 30px;
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 15px;
-}
-.form2 {
-      display: block;
-
-}
-
 #dropUsuario {
       margin-right: 10px;
       margin-bottom: 20px;
 }
 #iniciarSesion:hover{
       background-color: rgb(125, 26, 192);
-
-}
-.bordetop{
-      margin-top: 25px;
-}
-
-.derechab{
-      padding-left: 50px;
 }
 footer {
       background-color: rgb(225, 190, 137);
