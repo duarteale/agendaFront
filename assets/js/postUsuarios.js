@@ -1,3 +1,14 @@
+function setFocusOnLoad() {
+      const primerInput = document.getElementById('usuario');
+      if (primerInput) {
+            primerInput.focus();
+            }
+      }
+
+document.addEventListener('DOMContentLoaded', setFocusOnLoad);
+window.addEventListener('load', setFocusOnLoad);
+      
+
 async function PostUsuarios() {
       console.log("La función PostUsuarios se está ejecutando.");
       const nombre = document.getElementById("nombre").value;
@@ -25,6 +36,6 @@ async function PostUsuarios() {
             }
             } catch (error) {
                   console.error("Error al crear el usuario:", error);
-            }      
+            }            
       }
       document.getElementById("guardarUsuarioButton").addEventListener("click", PostUsuarios);

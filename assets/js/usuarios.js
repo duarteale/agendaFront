@@ -25,13 +25,13 @@ async function GetAllUsuarios(ruta,buttons) {
                   if (buttons){
                         //Boton Editar
                         let editarButton = document.createElement('a');
-                        editarButton.href = "/usuarios/" + element.id + "/modificarUsuario";
+                        editarButton.href = "/usuarios/" + element.id + "/modificar_usuario";
                         editarButton.className = "btn btn-primary small-button";
                         editarButton.innerHTML = '<i class="bi bi-pencil-fill"></i>';
                         editarButton.addEventListener("click", function (event) {
                               event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
                               const usuarioID = element.id;
-                              window.location.href = `/modificarUsuario.html?id=${usuarioID}`;
+                              window.location.href = `/modificar_usuario.html?id=${usuarioID}`;
                         });
                         celdaAcciones.appendChild(editarButton);
                         //Boton Eliminar
@@ -66,7 +66,7 @@ function checkPageAndLoadUsuarios() {
       const currentPath = window.location.pathname;
       if (currentPath.includes("usuarios.html")) {
             GetAllUsuarios("/usuarios", true);
-      } else if (currentPath.includes("usuariosEliminados.html")) {
+      } else if (currentPath.includes("usuarios_eliminados.html")) {
             GetAllUsuarios("/usuarios/eliminados", false);
       }
 }

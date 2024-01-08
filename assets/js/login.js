@@ -1,37 +1,3 @@
-/*document.addEventListener('DOMContentLoaded', function () {
-      const loginForm = document.getElementById('loginForm');
-
-      loginForm.addEventListener('submit', function (event) {
-            event.preventDefault(); 
-            const usuario = document.getElementById('usuario').value;
-            const password = document.getElementById('password').value;
-      
-            fetch(endpointBase + '/usuarios/login', {
-                  method: 'POST',
-                  headers: {
-                        'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ usuario, password }),
-            })
-            .then(response => {
-                  if (!response.ok) {
-                        throw new Error('Usuario o contraseña incorrectos');
-                  }
-                  return response.json();
-            })
-            .then(data => {
-                  console.log('Inicio de sesión exitoso:', data);
-      
-                  // Por ejemplo, redirigir a otra página después del inicio de sesión exitoso
-                  window.location.href = 'index.html';
-            })
-            .catch(error => {
-                  alert(error.message);
-                  window.location.href = 'error.html';
-            });
-      });
-}); */ 
-
 document.addEventListener("DOMContentLoaded", function() {
 
       async function login(event) {

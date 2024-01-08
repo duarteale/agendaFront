@@ -12,6 +12,19 @@ body{
       color: rgb(125, 26, 192);
       background-color: whitesmoke;
 }
+.navbar-nav .dropdown-item {
+      color: rgb(125, 26, 192);
+}
+.navbar-nav .dropdown-item:hover {
+      background-color: rgb(225, 190, 137); 
+}
+.navbar-toggler{
+      border-color: rgb(125, 26, 192);
+}
+.navbar-toggler-icon{
+      background-image: url(
+            "data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(125, 26, 192)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
 h2{
       text-align: center;
 }
@@ -30,18 +43,6 @@ input{
 
 .dropdown{
       background-color: black;
-}
-
-.navbar-toggler{
-      border-color: rgb(125, 26, 192);
-}
-.navbar-toggler-icon{
-      background-image: url(
-            "data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(125, 26, 192)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
-}
-.dropdown-item:hover {
-      background-color: rgb(59, 57, 57);
-      color: rgb(125, 26, 192);
 }
 #cuit,
 #telefono {
@@ -67,6 +68,12 @@ input[type="url"] {
 label{
       color: rgb(125, 26, 192);
 }
+.container{
+      background-color: rgb(225, 190, 137);
+      padding: 20px;
+      border-radius: 20px;
+}
+
 .container2{
       color: white;
       border-radius: 10px;
@@ -106,6 +113,8 @@ margin: 0;
 .login{
       max-width: 300px;
       margin: 0 auto;
+      display: flex;
+      justify-content: center;
       color: white;
       align-items: center;
       text-align: center;      
@@ -114,10 +123,26 @@ margin: 0;
 .login input[type="usuario"],
 .login input[type="password"],
 .login button {
+      border: 1px solid rgb(125, 26, 192);
+      color: rgb(125, 26, 192);
       margin-top: 10px;
       text-align: center;
       width: 100%; 
       margin-bottom: 10px;
+}
+.btn-success{
+      background-color: rgb(70, 12, 108);
+}
+.btn-success:hover,
+.btn-success:active{
+      background-color: rgb(104, 84, 117);
+}
+.btn-primary{
+      background-color: rgb(125, 26, 192);
+}
+.btn-primary:hover,
+.btn-primary:active{
+      background-color: rgb(118, 5, 101) !important;
 }
 .btn-light{
       height: 50px;
@@ -147,7 +172,7 @@ form{
       margin-bottom: 20px;
 }
 #iniciarSesion:hover{
-      background-color: rgb(100, 100, 100);
+      background-color: rgb(125, 26, 192);
 
 }
 .bordetop{
@@ -158,6 +183,7 @@ form{
       padding-left: 50px;
 }
 footer {
+      background-color: rgb(225, 190, 137);
       padding-top: 5px;
       padding-bottom: 5px;
 }

@@ -1,3 +1,13 @@
+function setFocusOnLoad() {
+      const primerInput = document.getElementById('nombre');
+      if (primerInput) {
+            primerInput.focus();
+            }
+      }
+
+document.addEventListener('DOMContentLoaded', setFocusOnLoad);
+window.addEventListener('load', setFocusOnLoad);
+
 async function PostContactos() {
       console.log("La función Postcontactos se está ejecutando.");
       const nombre = document.getElementById("nombre").value;

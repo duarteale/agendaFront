@@ -153,7 +153,7 @@ function showAllContactos() {
 function filterContactosByCiudad(ciudadSeleccionada) {
       const tableRows = document.querySelectorAll("#tableBodyContactos tr");
       tableRows.forEach((row) => {
-            const ciudad = row.querySelector("td:nth-child(4)").textContent;
+            const ciudad = row.querySelector("td:nth-child(6)").textContent;
       
             if (ciudadSeleccionada === 'Ciudad' || ciudad === ciudadSeleccionada) {
             row.style.display = "table-row";
