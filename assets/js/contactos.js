@@ -1,15 +1,10 @@
 async function GetAllContactos(ruta,buttons) {
       const resp = await axios.get(endpointBase + ruta);
       if (resp.status === 200) {
-            let ciudadesUnicas = new Set();
-            let miTabla = document.getElementById('tableBodyContactos');
             resp.data.forEach((element, index) => {
-                  ciudadesUnicas.add(element.ciudad);
                   let accordionContainer = document.getElementById('accordionContactos');
 
-
-
-                  //---------Para la tabla----------//
+                  //---------Para el accordion----------//
                   let accordionItem = document.createElement('div');
                   accordionItem.classList.add('accordion-item');
                   
@@ -32,8 +27,26 @@ async function GetAllContactos(ruta,buttons) {
                   accordionCollapse.setAttribute('id', `collapse${index}`);
                   
                   let accordionBody = document.createElement('div');
-                  accordionBody.classList.add('accordion-body');
-                  accordionBody.innerHTML = `
+                  accordionBody.classList.add('accordion-body', 'd-flex', 'justify-content-between', 'align-items-center');
+
+                  // Crear el botón para llamar
+                  let llamarButton = document.createElement('button');
+                  llamarButton.classList.add('btn', 'btn-secondary', 'small-button', 'me-2');
+                  llamarButton.innerHTML = '<i class="bi bi-phone-fill"></i> Llamar';
+                  llamarButton.addEventListener("click", function () {
+                  llamarContacto(element.telefono); // Función para llamar al contacto
+                  });
+
+                  // Crear el botón para enviar un mensaje de WhatsApp
+                  let whatsappButton = document.createElement('button');
+                  whatsappButton.classList.add('btn', 'btn-success', 'small-button');
+                  whatsappButton.innerHTML = '<i class="bi bi-chat-dots-fill"></i> WhatsApp';
+                  whatsappButton.addEventListener("click", function () {
+                  enviarWhatsApp(element.telefono); // Función para enviar un mensaje de WhatsApp al contacto
+                  });
+
+                  let datosContacto = document.createElement('div');
+                  datosContacto.innerHTML = `
                         <p><strong>Nombre:</strong> ${element.nombre}</p>
                         <p><strong>Apellido:</strong> ${element.apellido}</p>
                         <p><strong>Teléfono:</strong> ${element.telefono}</p>
@@ -41,83 +54,56 @@ async function GetAllContactos(ruta,buttons) {
                         <p><strong>Dirección:</strong> ${element.direccion}</p>
                         <p><strong>Ciudad:</strong> ${element.ciudad}</p>
                         `;
-                  
-                  accordionCollapse.appendChild(accordionBody);
-                  
-                  accordionItem.appendChild(accordionHeader);
-                  accordionItem.appendChild(accordionCollapse);
-                  
-                  accordionContainer.appendChild(accordionItem);
 
+                  accordionBody.appendChild(llamarButton);
+                  accordionBody.appendChild(datosContacto);
+                  accordionBody.appendChild(whatsappButton);
+                              
+                  if (buttons) {
+                        let botonesContacto = document.createElement('div');
+                        botonesContacto.classList.add('d-flex', 'align-items-center');
 
-                  //---------Para la tabla----------//
-                  let fila = document.createElement('tr');
-
-                  let celda1 = document.createElement('td');
-                  celda1.textContent = element.nombre;
-                  fila.appendChild(celda1);
-
-                  let celda2 = document.createElement('td');
-                  celda2.textContent = element.apellido;
-                  fila.appendChild(celda2);
-
-                  let celda3 = document.createElement('td');
-                  celda3.textContent = element.telefono;
-                  fila.appendChild(celda3);
-
-                  let celda4 = document.createElement('td');
-                  celda4.textContent = element.email;
-                  fila.appendChild(celda4);
-
-                  let celda5 = document.createElement('td');
-                  celda5.textContent = element.direccion;
-                  fila.appendChild(celda5);
-
-                  let celda6 = document.createElement('td');
-                  celda6.textContent = element.ciudad;
-                  fila.appendChild(celda6);
-
-                  let celdaAcciones = document.createElement('td');
-                  if (buttons){
-                        //Boton de Editar
                         let editarButton = document.createElement('a');
                         editarButton.href = "/contactos/" + element.id + "/modificar_contacto";
-                        editarButton.className = "btn btn-primary small-button";
+                        editarButton.classList.add('btn', 'btn-primary', 'small-button', 'me-2');
                         editarButton.innerHTML = '<i class="bi bi-pencil-fill"></i>';
                         editarButton.addEventListener("click", function (event) {
-                              event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
-                              const contactoID = element.id;
-                              window.location.href = `/modificar_contacto.html?id=${contactoID}`;
+                        event.preventDefault();
+                        const contactoID = element.id;
+                        window.location.href = `/modificar_contacto.html?id=${contactoID}`;
                         });
-                        celdaAcciones.appendChild(editarButton);
-                        //Boton de Eliminar
+      
                         let eliminarButton = document.createElement('button');
                         eliminarButton.type = "button";
-                        eliminarButton.className = "btn btn-danger small-button";                        
+                        eliminarButton.classList.add('btn', 'btn-danger', 'small-button');
                         eliminarButton.innerHTML = '<i class="bi bi-x-circle-fill"></i>';
                         eliminarButton.addEventListener("click", function () {
-                              // Llama a la función SwalFire con el elemento actual
-                              SwalFire(element);                        
+                        SwalFire(element);
                         });
-                        celdaAcciones.appendChild(eliminarButton);
-                  }else{
-                        //Boton de Activar inactivos
-                        let activarButton = document.createElement('button');
-                        activarButton.type = "button";
-                        activarButton.className = "btn btn-warning small-button";
-                        activarButton.innerHTML = '<i class="bi bi-play-fill"></i>';
-                        activarButton.addEventListener("click", function () {
-                        // Llama a la función para activar el contacto con el elemento actual
-                        activarContacto(element);
-                        });
-                        celdaAcciones.appendChild(activarButton);
+      
+                        let btnGroup = document.createElement('div');
+                        btnGroup.classList.add('mt-3');
+                        btnGroup.appendChild(editarButton);
+                        btnGroup.appendChild(eliminarButton);
+      
+                        botonesContacto.appendChild(editarButton);
+                        botonesContacto.appendChild(eliminarButton);
+
+                        accordionBody.appendChild(botonesContacto);
                   }
-                  fila.appendChild(celdaAcciones);
-                  miTabla.appendChild(fila);
+                  accordionCollapse.appendChild(accordionBody);          
+                  accordionItem.appendChild(accordionHeader);
+                  accordionItem.appendChild(accordionCollapse);
+                  accordionContainer.appendChild(accordionItem);
             });
-            buildDropdownMenu(ciudadesUnicas);
       }
 }
+function llamarContacto(numeroTelefono) {
+      // Aquí puedes implementar la lógica para realizar la llamada utilizando el número de teléfono proporcionado
+      // Por ejemplo:
+      window.location.href = `tel:${numeroTelefono}`;
+}
+
 function checkPageAndLoadContactos() {
       const currentPath = window.location.pathname;
       if (currentPath.includes("index.html")) {
@@ -131,84 +117,36 @@ checkPageAndLoadContactos();
 // Función para buscar Contactos
 function searchContactos() {
       const searchInput = document.getElementById("searchInput").value.toLowerCase();
-      const tableRows = document.querySelectorAll("#tableBodyContactos tr");
+      const accordionItems = document.querySelectorAll('.accordion-item');
+  
+      accordionItems.forEach((item) => {
+            const accordionButton = item.querySelector('.accordion-button');
+  
+            if (accordionButton) {
+                  const nombreApellido = accordionButton.textContent.toLowerCase();
       
-            tableRows.forEach((row) => {
-            const nombre = row.querySelector("td:nth-child(1)").textContent.toLowerCase();
-      
-            if (nombre.includes(searchInput)) {
-            row.style.display = "table-row";
-            } else {
-            row.style.display = "none";
+                  // Filtrar elementos del acordeón según la búsqueda
+                  if (nombreApellido.includes(searchInput)) {
+                        item.style.display = "block"; // Mostrar el elemento del acordeón
+                  } else {
+                        item.style.display = "none"; // Ocultar el elemento del acordeón
+                  }
             }
       });
 }
+      
 document.querySelectorAll(".dropdown-item").forEach((item) => {
       item.addEventListener("click", function () {
-            document.querySelector(".btn-light.dropdown-toggle").textContent = item.textContent;
-            searchContactos();
-            });
-      });
-      
-const searchButton = document.getElementById("searchButton");
-searchButton.addEventListener("click", searchContactos);
-//Los comandos de abajo, hacen que la busqueda sea incremental
-searchInput.addEventListener("input", function () {
+      document.querySelector(".btn-light.dropdown-toggle").textContent = item.textContent;
       searchContactos();
+      });
 });
 
-function buildDropdownMenu(ciudades) {
-      const ciudadMenu = document.getElementById('ciudadMenu');
-      ciudadMenu.innerHTML = '';
-      const mostrarTodosItem = document.createElement('a');
-      mostrarTodosItem.classList.add('dropdown-item');
-      mostrarTodosItem.href = '#';
-      mostrarTodosItem.textContent = 'Mostrar Todos';
+const searchButton = document.getElementById("searchButton");
+searchButton.addEventListener("click", searchContactos);
 
-      mostrarTodosItem.style.color = '#7D13C0';
-
-      mostrarTodosItem.addEventListener('click', function () {
-            document.querySelector(".btn-light.dropdown-toggle").textContent = 'Ciudad';
-            showAllContactos(); // Función para mostrar todos los contactos
-      });
-      ciudadMenu.appendChild(mostrarTodosItem);
-
-      ciudades.forEach(ciudad => {
-            const ciudadItem = document.createElement('a');
-            ciudadItem.classList.add('dropdown-item');
-            ciudadItem.href = '#';
-            ciudadItem.textContent = ciudad;
-
-            ciudadItem.style.color = '#7D13C0';
-      
-            ciudadItem.addEventListener('click', function () {
-            document.querySelector(".btn-light.dropdown-toggle").textContent = ciudad;
-            filterContactosByCiudad(ciudad); // Paso 3
-            });
-      
-            ciudadMenu.appendChild(ciudadItem);
-      });
-}
-function showAllContactos() {
-      const tableRows = document.querySelectorAll("#tableBodyContactos tr");
-      tableRows.forEach((row) => {
-            row.style.display = "table-row";
-      });
-}
-
-function filterContactosByCiudad(ciudadSeleccionada) {
-      const tableRows = document.querySelectorAll("#tableBodyContactos tr");
-      tableRows.forEach((row) => {
-            const ciudad = row.querySelector("td:nth-child(6)").textContent;
-      
-            if (ciudadSeleccionada === 'Ciudad' || ciudad === ciudadSeleccionada) {
-            row.style.display = "table-row";
-            } else {
-            row.style.display = "none";
-            }
-      });
-}
-
+const searchInput = document.getElementById("searchInput");
+searchInput.addEventListener("input", searchContactos);
 
 //Funcion para eliminar un contacto.
 async function SwalFire(element) {
