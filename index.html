@@ -66,9 +66,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="accordion" id="accordionContactos">
+                    <!-- Iterar sobre los datos de contacto para crear cada elemento del acordeón -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">                            
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionContactos">
+                            <div class="accordion-body">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Repite esta estructura para cada dato de contacto -->
+                </div>
 
                 <!-- Tabla de usuarios -->
-                <div class="table-responsive">
+                <div class="table-responsive mt-4">
                     <table class="table table-light table-striped">
                         <thead>
                             <tr class="text-center">
@@ -85,8 +97,9 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
+
+            
     </main>
     <div id="footer"></div>
     <script src="assets/js/contactos.js"></script>

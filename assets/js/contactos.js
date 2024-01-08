@@ -3,8 +3,54 @@ async function GetAllContactos(ruta,buttons) {
       if (resp.status === 200) {
             let ciudadesUnicas = new Set();
             let miTabla = document.getElementById('tableBodyContactos');
-            resp.data.forEach(element => {
+            resp.data.forEach((element, index) => {
                   ciudadesUnicas.add(element.ciudad);
+                  let accordionContainer = document.getElementById('accordionContactos');
+
+
+
+                  //---------Para la tabla----------//
+                  let accordionItem = document.createElement('div');
+                  accordionItem.classList.add('accordion-item');
+                  
+                  let accordionHeader = document.createElement('h2');
+                  accordionHeader.classList.add('accordion-header');
+                  
+                  let accordionButton = document.createElement('button');
+                  accordionButton.classList.add('accordion-button', 'collapsed');
+                  accordionButton.setAttribute('type', 'button');
+                  accordionButton.setAttribute('data-bs-toggle', 'collapse');
+                  accordionButton.setAttribute('data-bs-target', `#collapse${index}`);
+                  accordionButton.setAttribute('aria-expanded', 'false');
+                  accordionButton.setAttribute('aria-controls', `collapse${index}`);
+                  accordionButton.textContent = `${element.nombre} ${element.apellido}`; // Puedes ajustar aquí qué datos mostrar en el encabezado del acordeón
+                  
+                  accordionHeader.appendChild(accordionButton);
+                  
+                  let accordionCollapse = document.createElement('div');
+                  accordionCollapse.classList.add('accordion-collapse', 'collapse');
+                  accordionCollapse.setAttribute('id', `collapse${index}`);
+                  
+                  let accordionBody = document.createElement('div');
+                  accordionBody.classList.add('accordion-body');
+                  accordionBody.innerHTML = `
+                        <p><strong>Nombre:</strong> ${element.nombre}</p>
+                        <p><strong>Apellido:</strong> ${element.apellido}</p>
+                        <p><strong>Teléfono:</strong> ${element.telefono}</p>
+                        <p><strong>Email:</strong> ${element.email}</p>
+                        <p><strong>Dirección:</strong> ${element.direccion}</p>
+                        <p><strong>Ciudad:</strong> ${element.ciudad}</p>
+                        `;
+                  
+                  accordionCollapse.appendChild(accordionBody);
+                  
+                  accordionItem.appendChild(accordionHeader);
+                  accordionItem.appendChild(accordionCollapse);
+                  
+                  accordionContainer.appendChild(accordionItem);
+
+
+                  //---------Para la tabla----------//
                   let fila = document.createElement('tr');
 
                   let celda1 = document.createElement('td');
